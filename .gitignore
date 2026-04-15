@@ -11,19 +11,19 @@ __pycache__/
 build/
 develop-eggs/
 
-downloads/
+#downloads/
 
 lib/
 lib64/
 parts/
 sdist/
 var/
-wheels/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+#wheels/
+#share/python-wheels/
+#*.egg-info/
+#.installed.cfg
+#*.egg
+#MANIFEST
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -157,5 +157,5 @@ venv/
 #  Cursor is an AI-powered code editor. `.cursorignore` specifies files/directories to
 #  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
 #  refer to https://docs.cursor.com/context/ignore-files
-.cursorignore
-.cursorindexingignore
+#.cursorignore
+#.cursorindexingignore
