@@ -34,7 +34,7 @@ class PotatoDB:
         else:
             return None
 
-    def update(self, table_name, condition_func, update_func):
+    def update(self, table_name:str, condition_func, update_func):
         """Updates records in the specified table based on a condition."""
         if table_name in self.tables:
             for record in self.tables[table_name]:
@@ -45,7 +45,7 @@ class PotatoDB:
         else:
             return False
 
-    def delete(self, table_name, condition_func):
+    def delete(self, table_name:str, condition_func):
         """Deletes records from the specified table based on a condition."""
         if table_name in self.tables:
             self.tables[table_name] = [record for record in self.tables[table_name] if not condition_func(record)]
@@ -54,7 +54,7 @@ class PotatoDB:
         else:
             return False
 
-    def set_folder(self, folder_name):
+    def set_folder(self, folder_name:str):
         """Sets the folder where the tables will be saved and loaded."""
         self.folder = folder_name
         if not os.path.exists(self.folder):
