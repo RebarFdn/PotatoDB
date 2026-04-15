@@ -8,22 +8,25 @@ class PotatoDB:
         self.set_folder(folder)
         self.load()
 
-    def create_table(self, table_name):
+    def create_table(self, table_name:str):
         """Creates a new table."""
         self.tables[table_name] = []
         self.save(table_name)
 
-    def insert(self, table_name, data):
-        """Inserts a new record into the specified table."""
-        if table_name in self.tables:
+    def insert(self, table_name:str, data:dict):
+    """Inserts a new record only if it doesn't already exist."""
+    if table_name in self.tables:
+        if data not in self.tables[table_name]:  # Check if exact match exists
             self.tables[table_name].append(data)
         else:
-            # If table does not exist, create it and insert data
-            self.tables[table_name] = [data]
-        self.save(table_name)
-        return data
+            return None  # Duplicate detected
+    else:
+        self.tables[table_name] = [data]
     
-    def query(self, table_name, query_func):
+    self.save(table_name)
+    return data
+
+    def query(self, table_name:str, query_func):
         """Queries data from the specified table using a query function."""
         if table_name in self.tables:
             result = list(filter(query_func, self.tables[table_name]))
