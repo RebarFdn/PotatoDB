@@ -97,3 +97,16 @@ class PotatoDB:
                             self.tables[table_name] = json.load(json_file)
         else:
             raise ValueError("Folder not set. Use set_folder method to set the folder path.")
+    
+    @property    
+    def is_empty(self, ):
+        if self.tables:
+            for item in self.tables.keys():
+                test = self.query(item, lambda record: True )
+                if test:
+                    return False
+                else:
+                    return True
+        else:
+            return True
+        
