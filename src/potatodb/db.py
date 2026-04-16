@@ -34,6 +34,7 @@ class PotatoDB:
         else:
             return None
 
+
     def update(self, table_name:str, condition_func, update_func):
         """Updates records in the specified table based on a condition."""
         if table_name in self.tables:
@@ -45,6 +46,7 @@ class PotatoDB:
         else:
             return False
 
+
     def delete(self, table_name:str, condition_func):
         """Deletes records from the specified table based on a condition."""
         if table_name in self.tables:
@@ -54,6 +56,7 @@ class PotatoDB:
         else:
             return False
 
+
     def set_folder(self, folder_name:str):
         """Sets the folder where the tables will be saved and loaded."""
         self.folder = folder_name
@@ -61,7 +64,8 @@ class PotatoDB:
             os.makedirs(self.folder)
         return True
 
-    def save(self, table_name=None):
+
+    def save( self, table_name:str | None = None ):
         """Saves the specified table to a JSON file in the set folder, using the table name as the filename."""
         if table_name:
             if table_name in self.tables:
@@ -77,7 +81,8 @@ class PotatoDB:
                 with open(filename, 'w') as file:
                     json.dump(self.tables[table_name], file, indent=4)
 
-    def load(self, table_name=None):
+    
+    def load( self, table_name:str | None = None ):
         """Loads a table from a JSON file in the set folder. If table_name is not specified, it loads all tables."""
         if self.folder:
             if table_name:
@@ -98,8 +103,9 @@ class PotatoDB:
         else:
             raise ValueError("Folder not set. Use set_folder method to set the folder path.")
     
+    
     @property    
-    def is_empty(self, ):
+    def is_empty( self ):
         if self.tables:
             for item in self.tables.keys():
                 test = self.query(item, lambda record: True )
