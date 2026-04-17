@@ -37,6 +37,10 @@
       - [`set_folder`](#set_folder)
       - [`save`](#save)
       - [`load`](#load)
+    - [Extended Features](#extended-features)
+      - [`run_query`](#run_query)
+      - [`drop_table`](#drop_table)
+      - [`report`](#report)
   - [Examples](#examples)
   - [Advanced Usage](#advanced-usage)
     - [Custom Data Persistence](#custom-data-persistence)
@@ -47,13 +51,13 @@
     - [New Properties](#new-properties)
       - [`timestamp`](#timestamp)
       - [`is_empty`](#is_empty)
-      - [`report`](#report)
+      - [`report`](#report-1)
       - [`hash_store`](#hash_store)
       - [`hash_json`](#hash_json)
       - [`check_exist`](#check_exist)
       - [`dump`](#dump)
-      - [\`run\_query'](#run_query)
-      - [`drop_table`](#drop_table)
+      - [\`run\_query'](#run_query-1)
+      - [`drop_table`](#drop_table-1)
       - [](#)
     
 ## Installation
@@ -106,9 +110,27 @@ To query records, use the `query` method with a custom query function. The query
 all_users = db.query("users", lambda record: True)
 print("All users:", all_users)
 
+`depricated` This method will produce an error! Use the `run_query` method instead.
 # Query users older than 30
 users_above_30 = db.query("users", lambda record: record["age"] > 30)
 print("Users above 30:", users_above_30)
+
+# Run query method
+users_above_30 = db.run_query("users", {"age": "> 30"} )
+print("Users above 30:", users_above_30)
+
+# Query users younger than 30
+users_under_30 = db.run_query("users", {"age": "< 30"} )
+print("Users under 30:", users_under_30)
+
+# Query users younger than 30 from marketing
+marketing_users_under_30 = db.run_query("users", {"department":"marketing", "age": "< 30"} )
+print("Users from marketing of age under 30:", marketing_users_under_30)
+
+# Query stocks of price below $1.00 
+cheap_stocs = db.run_query("stocks", { "price": "< 1.00"} )
+print( "Cheap Stocks:", cheap_stocks )
+
 ```
 
 ### Updating Records
@@ -234,6 +256,50 @@ def load(self, table_name=None):
 - **Parameters:**
   - `table_name` (str): The name of the table to load. If `None`, all tables are loaded.
 
+
+### Extended Features
+
+#### `run_query`
+
+```python
+def run_query(self, table_name:str, query_data:dict={}):
+```
+
+- **Description:** Queries data from the specified table using a dictionary of query parameters.
+- **Parameters:**
+  - `table_name` (str): The name of the table to query.
+  - `query_data` (dict): A dictionary with key matching a corresponding key on the database and value as input as input to the internal query functions.
+- **Returns:** A list of records that match the query.
+
+#### `drop_table`
+
+```python
+def drop_table(self, table_name:str):
+```
+
+- **Description:** Permanently deletes the requested table from the database.
+- **Parameters:**
+  - `table_name` (str): The name of the table to delete.
+- **Returns:** None.
+
+#### `report`
+
+```python
+def report( self ):
+```
+
+- **Description:** Function that produces a dictionary of usage and table contents statistics.
+Takes no parameters and is called as a property of the database.
+- **Returns:** A Dictionary:
+- **Key Value Pairs:**
+  `name`: The name of the current folder that contains the database files.
+  `directory`: The Route Path of the database folder.
+  `tables`: A list of table names in the database
+  `contents`: A dictionary with statics about the database table usage and contents
+    - `tables`: An intiger value representing The amount of tables that the database 
+    - `data_sets`: An intiger count of the amount of documents containd in the database overall.   
+
+
 ## Examples
 
 Here's a complete example of how to use PotatoDB:
@@ -247,6 +313,9 @@ db = PotatoDB("example_data")
 # Create a new table called "users"
 db.create_table("users")
 
+# Delete a table called "users"
+db.drop_table("users")
+
 # Insert a new record into the "users" table
 db.insert("users", {"name": "Alice", "age": 30})
 db.insert("users", {"name": "Bob", "age": 25})
@@ -256,10 +325,10 @@ all_users = db.query("users", lambda record: True)
 print("All users:" , all_users)
 
 # Update the age of all users named "Alice" to 35
-db.update("users", lambda record: record["name"] == "Alice", lambda record: record.update({"age": 35}))
+db.update("users", lambda record: record["doc"]["name"] == "Alice", lambda record: record.update({"age": 35}))
 
 # Query all records above the age of 30 from the "users" table
-users_above_30 = db.query("users", lambda record: record["age"] > 30)
+users_above_30 = db.run_query( "users", {"age": "> 30"} )
 
 # Print the updated records
 print("Users above 30:", users_above_30)
@@ -275,6 +344,24 @@ print("Remaining users:", remaining_users)
 ```
 
 ## Advanced Usage
+
+```python
+# Query users younger than 30
+users_under_30 = db.run_query("users", {"age": "< 30"} )
+print("Users under 30:", users_under_30)
+
+# Query users younger than 30 from marketing
+marketing_users_under_30 = db.run_query("users", {"department":"marketing", "age": "< 30"} )
+print("Users from marketing of age under 30:", marketing_users_under_30)
+
+# Query stocks of price below $1.00 
+cheap_stocs = db.run_query("stocks", { "price": "< 1.00"} )
+print( "Cheap Stocks:", cheap_stocks )
+
+# Query stocks of price below $1.00 on Index
+cheap_index_stocs = db.run_query("stocks", { "index": "NASDAQ",  "price": "< 1.00" } )
+print( "Cheap Stocks:", cheap_index_stocks )
+```
 
 ### Custom Data Persistence
 
@@ -308,7 +395,8 @@ A new feature `drop_table` has also been implemented that deletes a table from t
 
 #### `timestamp`
 
-An intiger timestamp recorded at data creation and data updating.
+A utitity feature that generates an intiger timestamp of the time a record is either created or updated.
+Can be used in other parts of any program that requires an intiger timestamp as time related record.
 
 #### `is_empty`
 
@@ -332,9 +420,11 @@ Method to check for existing data
 , to prevent duplications
 
 #### `dump`
+
 Prepares and output the final data for storage
 
 #### `run_query'
+
 In addition to the existing query methods, this feature
 allows for easier querying by providing a dictionary with query instructions
 
