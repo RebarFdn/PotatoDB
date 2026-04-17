@@ -213,14 +213,11 @@ class PotatoDB:
                     key_value = list(query_data[keys[0]].split(' '))
                     if len(key_value) > 1:
                         comp2, val = tuple(key_value)
-                        print('compare layer fired', keys[0])
-                        
+                                                
                         first = list(filter( lambda record: True, self.tables[table_name]))
                         return list(filter(lambda record: keys[0] in record['doc'].keys() and ops[comp2](record['doc'].get(keys[0]), float(val)), first))
                     else: 
-                        print( 'last fired')                  
-                        return list(filter(lambda record: record['doc'][keys[0]] == query_data[keys[0]], self.tables[table_name]))
-                    
+                        return list(filter(lambda record: record['doc'][keys[0]] == query_data[keys[0]], self.tables[table_name]))                    
         else:
             return None
         
