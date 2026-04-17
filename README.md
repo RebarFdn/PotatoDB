@@ -53,10 +53,9 @@
       - [`check_exist`](#check_exist)
       - [`dump`](#dump)
       - [\`run\_query'](#run_query)
+      - [`drop_table`](#drop_table)
       - [](#)
-    - [Updated Data model](#updated-data-model)
-      - [`timestamp`](#timestamp-1)
-
+    
 ## Installation
 
 PotatoDB is implemented in pure Python and does not require any external dependencies. To start using PotatoDB, simply download the source code and include it in your project or install it via pip.
@@ -300,43 +299,52 @@ Contributions are welcome! If you find a bug or want to suggest a feature, feel 
 ## Change Log
 
 
-The model of the stored data has been updated to allow for minimal indexing , mitigate against data dupliction,  new dictionary query method .
-Database now generates a unique id , on the inserted data , the data is hashed and hash is stored on the data , a timestamp field is now included , the data being stored is now wrapped in a doc field.  
+The data model has been remodelled to allow for minimal indexing , mitigation against data dupliction,  the user document is now stored in a `doc` field, a unique uuid field `_id` is included in addition to a timestamp field `updated` that keeps track of updates to the user data and a `hash` field that stores a sha hash of the updated data. A new query method implemented `run_query` that allows for easier quering .
+Inserting data is now finalised by the `dump` feature. 
+A new reporting method has been implemented as a property of the database.
+A new feature `drop_table` has also been implemented that deletes a table from the database permanently.  
 
 ### New Properties
 
 #### `timestamp`
 
-Added new properties
+An intiger timestamp recorded at data creation and data updating.
 
 #### `is_empty`
-Feature to check for existing data and prevent Data Duplication
+
+Feature to check if a table is being used 
 
 #### `report`
-Simple Statistic reporting
+
+Simple Statistic reporting the number of tables and documents stored in the database  
 
 #### `hash_store`
-A list of data hashes, generated on call
+
+A list of sha hashes of the user data, generated on call
 
 #### `hash_json`
-Method to generate a hash of the provided data
+
+Method to generate a hash of the user provided data
 
 #### `check_exist`
 
 Method to check for existing data 
+, to prevent duplications
 
 #### `dump`
-Prepares and output the final data prior to storage
+Prepares and output the final data for storage
 
 #### `run_query'
 In addition to the existing query methods, this feature
 allows for easier querying by providing a dictionary with query instructions
 
-####
-More comprehensive Test features
+#### `drop_table`
 
+Method to permanently delete tables from the Database
 
+#### 
 
+More comprehensive Test features implemented .
 
 
 
@@ -631,7 +639,4 @@ More comprehensive Test features
 
 
 
-### Updated Data model
-
-#### `timestamp`
 

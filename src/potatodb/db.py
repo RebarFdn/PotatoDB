@@ -125,11 +125,13 @@ class PotatoDB:
     
     @property
     def timestamp(self):
+        '''To Track and record Updates '''
         return int(datetime.now().timestamp()) * 1000
 
     
     @property    
     def is_empty( self ):
+        '''Verify if the data table is empty'''
         if self.tables:
             for item in self.tables.keys():
                 test = self.query(item, lambda record: True )
@@ -176,6 +178,7 @@ class PotatoDB:
         
     
     def check_exist(self, table_name:str, data:dict)->bool:
+        '''Prevent data duplication by Checking if data is already existing '''
         test_item = self.hash_json(data=data)
         try:
             if test_item in self.hash_store(table_name=table_name):
@@ -186,6 +189,7 @@ class PotatoDB:
         
     
     def dump(self, data:dict):
+        ''' The final data being stored '''
         if '_id' in data.keys():
             data["hash"] = self.hash_json(data=data.get('doc', {}))
             data["updated"] = self.timestamp
@@ -221,3 +225,9 @@ class PotatoDB:
         else:
             return None
         
+
+    def drop_table(self, table_name:str)->None:
+        '''Permanently deletes a table from the database '''
+        if table_name:
+            del self.tables[table_name]
+            
