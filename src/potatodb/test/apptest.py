@@ -3,7 +3,6 @@
 import subprocess
 
 
-
 def greet():
     print( "\nWelcome to App Checker")
     print( "\nCheck and fix duplicate , and dead imports, unused variable removal... " )

@@ -15,31 +15,47 @@
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2. [Basic Usage](#basic-usage)
+- [PotatoDB: Lightweight JSON-based Database for Python](#potatodb-lightweight-json-based-database-for-python)
+  - [Features](#features)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Basic Usage](#basic-usage)
     - [Creating a Database Instance](#creating-a-database-instance)
     - [Creating a Table](#creating-a-table)
     - [Inserting Records](#inserting-records)
     - [Querying Records](#querying-records)
     - [Updating Records](#updating-records)
     - [Deleting Records](#deleting-records)
-3. [Detailed Documentation](#detailed-documentation)
-    - [Class: `PotatoDB`](#class-PotatoDB)
-    - [Methods](#methods)
-        - [`__init__`](#init)
-        - [`create_table`](#create_table)
-        - [`insert`](#insert)
-        - [`query`](#query)
-        - [`update`](#update)
-        - [`delete`](#delete)
-        - [`set_folder`](#set_folder)
-        - [`save`](#save)
-        - [`load`](#load)
-4. [Examples](#examples)
-5. [Advanced Usage](#advanced-usage)
-6. [Limitations](#limitations)
-7. [Future Enhancements](#future-enhancements)
-8. [Contributing](#contributing)
+  - [Detailed Documentation](#detailed-documentation)
+    - [Class: `PotatoDB`](#class-potatodb)
+      - [`__init__`](#__init__)
+      - [`create_table`](#create_table)
+      - [`insert`](#insert)
+      - [`query`](#query)
+      - [`update`](#update)
+      - [`delete`](#delete)
+      - [`set_folder`](#set_folder)
+      - [`save`](#save)
+      - [`load`](#load)
+  - [Examples](#examples)
+  - [Advanced Usage](#advanced-usage)
+    - [Custom Data Persistence](#custom-data-persistence)
+  - [Limitations](#limitations)
+  - [Future Enhancements](#future-enhancements)
+  - [Contributing](#contributing)
+  - [Change Log](#change-log)
+    - [New Properties](#new-properties)
+      - [`timestamp`](#timestamp)
+      - [`is_empty`](#is_empty)
+      - [`report`](#report)
+      - [`hash_store`](#hash_store)
+      - [`hash_json`](#hash_json)
+      - [`check_exist`](#check_exist)
+      - [`dump`](#dump)
+      - [\`run\_query'](#run_query)
+      - [](#)
+    - [Updated Data model](#updated-data-model)
+      - [`timestamp`](#timestamp-1)
 
 ## Installation
 
@@ -280,3 +296,342 @@ While PotatoDB automatically saves and loads data from JSON files, you can also 
 ## Contributing
 
 Contributions are welcome! If you find a bug or want to suggest a feature, feel free to open an issue or submit a pull request on GitHub.
+
+## Change Log
+
+
+The model of the stored data has been updated to allow for minimal indexing , mitigate against data dupliction,  new dictionary query method .
+Database now generates a unique id , on the inserted data , the data is hashed and hash is stored on the data , a timestamp field is now included , the data being stored is now wrapped in a doc field.  
+
+### New Properties
+
+#### `timestamp`
+
+Added new properties
+
+#### `is_empty`
+Feature to check for existing data and prevent Data Duplication
+
+#### `report`
+Simple Statistic reporting
+
+#### `hash_store`
+A list of data hashes, generated on call
+
+#### `hash_json`
+Method to generate a hash of the provided data
+
+#### `check_exist`
+
+Method to check for existing data 
+
+#### `dump`
+Prepares and output the final data prior to storage
+
+#### `run_query'
+In addition to the existing query methods, this feature
+allows for easier querying by providing a dictionary with query instructions
+
+####
+More comprehensive Test features
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Updated Data model
+
+#### `timestamp`
+

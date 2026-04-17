@@ -1,0 +1,60 @@
+[
+    {
+        "_id": "83e0ee02ce1844eb9596e3e1ac2ebc7f",
+        "hash": "12ef25819a8a8f9b2ae3b6b9df30196c",
+        "updated": 1776371913000,
+        "doc": {
+            "id": "A85R1501",
+            "name": "apple",
+            "amt": 500,
+            "stockin_date": 1776363389000
+        }
+    },
+    {
+        "_id": "872542c73cdf424886d24bcbddbf5af8",
+        "hash": "d15f802506c11c213201488ce2d21815",
+        "updated": 1776372081000,
+        "doc": {
+            "id": "P45R1501",
+            "name": "pear",
+            "amt": 1050,
+            "stockin_date": 1776363489000
+        }
+    },
+    {
+        "_id": "cf7b6995ccc946beb1ac48bd2dbbe998",
+        "hash": "4eb01683bd1ce07dcb9bd906cb2dd5e8",
+        "updated": 1776372780000,
+        "doc": {
+            "id": "P36R2501",
+            "name": "pear",
+            "amt": 150,
+            "price": 12.57,
+            "stockin_date": 1776363489000
+        }
+    },
+    {
+        "_id": "5eaab994ccf6451681c798c3fd142f71",
+        "hash": "801d6834bbd21616429219a30d0e62db",
+        "updated": 1776408338000,
+        "doc": {
+            "id": "O515",
+            "name": "Orange",
+            "amt": 50,
+            "price": 8.25,
+            "stockin_date": 1776363489000
+        }
+    },
+    {
+        "_id": "44e2fe94b1a346899efd44526b14a5c0",
+        "hash": "d4e51174ca11e7b2a2e499826b57eeff",
+        "updated": 1776408519000,
+        "doc": {
+            "id": "T815",
+            "name": "Tangerine",
+            "amt": 365,
+            "price": 6.0,
+            "stockin_date": 1776363589000
+        }
+    }
+]
