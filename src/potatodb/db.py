@@ -146,8 +146,9 @@ class PotatoDB:
     @property
     def report( self ):
         '''Generate Database Statistics Report'''
+        dbname = self.folder.split('/')
         report_data:dict = dict( 
-            name = 'PotatoDB',
+            name = dbname[len(dbname) - 1],
             directory = self.folder,
             tables = list( self.tables.keys() )
         )
